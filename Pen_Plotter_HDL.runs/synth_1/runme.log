@@ -1,0 +1,318 @@
+
+*** Running vivado
+    with args -log pen_plotter.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source pen_plotter.tcl
+
+
+
+****** Vivado v2022.2 (64-bit)
+  **** SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
+  **** IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source pen_plotter.tcl -notrace
+Command: read_checkpoint -auto_incremental -incremental {C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/utils_1/imports/synth_1/pen_plotter.dcp}
+INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/utils_1/imports/synth_1/pen_plotter.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top pen_plotter -part xc7a35tcpg236-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 24300
+INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [C:/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:04 . Memory (MB): peak = 1204.898 ; gain = 408.727
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'pen_plotter' [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:2]
+INFO: [Synth 8-6157] synthesizing module 'debounce' [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:71]
+INFO: [Synth 8-6155] done synthesizing module 'debounce' (0#1) [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:71]
+INFO: [Synth 8-6157] synthesizing module 'onepulse' [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:84]
+INFO: [Synth 8-6155] done synthesizing module 'onepulse' (0#1) [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:84]
+INFO: [Synth 8-6157] synthesizing module 'servo' [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/servo.v:10]
+INFO: [Synth 8-6155] done synthesizing module 'servo' (0#1) [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/servo.v:10]
+INFO: [Synth 8-6157] synthesizing module 'uart_top' [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/uart.v:1]
+INFO: [Synth 8-6157] synthesizing module 'uart_receiver' [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/uart.v:40]
+INFO: [Synth 8-6155] done synthesizing module 'uart_receiver' (0#1) [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/uart.v:40]
+INFO: [Synth 8-6157] synthesizing module 'uart_transmitter' [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/uart.v:109]
+INFO: [Synth 8-6155] done synthesizing module 'uart_transmitter' (0#1) [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/uart.v:109]
+INFO: [Synth 8-6155] done synthesizing module 'uart_top' (0#1) [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/uart.v:1]
+INFO: [Synth 8-6157] synthesizing module 'limit_switch' [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/limit_switch.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'limit_switch' (0#1) [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/limit_switch.v:4]
+INFO: [Synth 8-6157] synthesizing module 'stepper_motor_bottom' [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/stepper_motor_bottom.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'stepper_motor_bottom' (0#1) [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/stepper_motor_bottom.v:4]
+WARNING: [Synth 8-7071] port 'done' of module 'stepper_motor_bottom' is unconnected for instance 'motor_btm' [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:65]
+WARNING: [Synth 8-7023] instance 'motor_btm' of module 'stepper_motor_bottom' has 12 connections declared, but only 11 given [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:65]
+INFO: [Synth 8-6157] synthesizing module 'stepper_motor_top' [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/stepper_motor_top.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'stepper_motor_top' (0#1) [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/stepper_motor_top.v:4]
+WARNING: [Synth 8-7071] port 'done' of module 'stepper_motor_top' is unconnected for instance 'motor_top' [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:66]
+WARNING: [Synth 8-7023] instance 'motor_top' of module 'stepper_motor_top' has 12 connections declared, but only 11 given [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:66]
+INFO: [Synth 8-6155] done synthesizing module 'pen_plotter' (0#1) [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:2]
+WARNING: [Synth 8-7137] Register shift_reg_reg in module uart_transmitter has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/uart.v:136]
+WARNING: [Synth 8-3848] Net btm_ENB in module/entity pen_plotter does not have driver. [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:32]
+WARNING: [Synth 8-3848] Net top_ENB in module/entity pen_plotter does not have driver. [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:39]
+WARNING: [Synth 8-3848] Net rx in module/entity pen_plotter does not have driver. [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:51]
+WARNING: [Synth 8-3848] Net switches in module/entity pen_plotter does not have driver. [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/sources_1/new/pen_plotter.v:52]
+WARNING: [Synth 8-7129] Port angle_15[3] in module stepper_motor_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port angle_15[2] in module stepper_motor_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port angle_15[1] in module stepper_motor_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port angle_15[0] in module stepper_motor_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port angle_15[3] in module stepper_motor_bottom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port angle_15[2] in module stepper_motor_bottom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port angle_15[1] in module stepper_motor_bottom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port angle_15[0] in module stepper_motor_bottom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port clk in module limit_switch is either unconnected or has no load
+WARNING: [Synth 8-7129] Port btm_ENB in module pen_plotter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port top_ENB in module pen_plotter is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1298.910 ; gain = 502.738
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1298.910 ; gain = 502.738
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1298.910 ; gain = 502.738
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1298.910 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/constrs_1/new/constraints.xdc]
+WARNING: [Vivado 12-584] No ports matched 'rx'. [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/constrs_1/new/constraints.xdc:13]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/constrs_1/new/constraints.xdc:13]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'rx'. [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/constrs_1/new/constraints.xdc:14]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/constrs_1/new/constraints.xdc:14]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'tx'. [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/constrs_1/new/constraints.xdc:15]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/constrs_1/new/constraints.xdc:15]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'tx'. [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/constrs_1/new/constraints.xdc:16]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/constrs_1/new/constraints.xdc:16]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+Finished Parsing XDC File [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/constrs_1/new/constraints.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/constrs_1/new/constraints.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/pen_plotter_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/pen_plotter_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1408.617 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1408.617 ; gain = 0.000
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [C:/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:06 ; elapsed = 00:00:11 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:06 ; elapsed = 00:00:11 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:06 ; elapsed = 00:00:11 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'step_state_reg' in module 'stepper_motor_bottom'
+INFO: [Synth 8-802] inferred FSM for state register 'step_state_reg' in module 'stepper_motor_top'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                   STEP1 |                             0001 |                               00
+                   STEP2 |                             0010 |                               01
+                   STEP3 |                             0100 |                               10
+                   STEP4 |                             1000 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'step_state_reg' using encoding 'one-hot' in module 'stepper_motor_bottom'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                   STEP1 |                             0001 |                               00
+                   STEP2 |                             0010 |                               01
+                   STEP3 |                             0100 |                               10
+                   STEP4 |                             1000 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'step_state_reg' using encoding 'one-hot' in module 'stepper_motor_top'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:11 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   16 Bit       Adders := 4     
+	   2 Input    4 Bit       Adders := 2     
++---Registers : 
+	               16 Bit    Registers := 6     
+	                8 Bit    Registers := 4     
+	                5 Bit    Registers := 3     
+	                4 Bit    Registers := 2     
+	                1 Bit    Registers := 29    
++---Muxes : 
+	   2 Input   16 Bit        Muxes := 10    
+	   3 Input   16 Bit        Muxes := 2     
+	   2 Input    4 Bit        Muxes := 4     
+	   2 Input    1 Bit        Muxes := 29    
+	   4 Input    1 Bit        Muxes := 8     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-7129] Port btm_ENB in module pen_plotter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port top_ENB in module pen_plotter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port btm_angle_15[3] in module pen_plotter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port btm_angle_15[2] in module pen_plotter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port btm_angle_15[1] in module pen_plotter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port btm_angle_15[0] in module pen_plotter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port top_angle_15[3] in module pen_plotter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port top_angle_15[2] in module pen_plotter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port top_angle_15[1] in module pen_plotter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port top_angle_15[0] in module pen_plotter is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:07 ; elapsed = 00:00:13 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:10 ; elapsed = 00:00:17 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:10 ; elapsed = 00:00:18 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:10 ; elapsed = 00:00:18 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:12 ; elapsed = 00:00:21 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:12 ; elapsed = 00:00:21 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:12 ; elapsed = 00:00:21 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:12 ; elapsed = 00:00:21 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:21 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:12 ; elapsed = 00:00:21 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |     1|
+|2     |CARRY4 |    41|
+|3     |LUT1   |    15|
+|4     |LUT2   |    39|
+|5     |LUT3   |    27|
+|6     |LUT4   |    73|
+|7     |LUT5   |    11|
+|8     |LUT6   |    13|
+|9     |FDRE   |   156|
+|10    |FDSE   |    10|
+|11    |IBUF   |     9|
+|12    |OBUF   |    14|
+|13    |OBUFT  |     2|
++------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:12 ; elapsed = 00:00:21 . Memory (MB): peak = 1408.617 ; gain = 612.445
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 11 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:08 ; elapsed = 00:00:20 . Memory (MB): peak = 1408.617 ; gain = 502.738
+Synthesis Optimization Complete : Time (s): cpu = 00:00:12 ; elapsed = 00:00:21 . Memory (MB): peak = 1408.617 ; gain = 612.445
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1408.617 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 41 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1408.617 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete, checksum: 9d904c9c
+INFO: [Common 17-83] Releasing license: Synthesis
+47 Infos, 35 Warnings, 4 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:14 ; elapsed = 00:00:25 . Memory (MB): peak = 1408.617 ; gain = 990.121
+INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
+INFO: [Common 17-1381] The checkpoint 'C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.runs/synth_1/pen_plotter.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file pen_plotter_utilization_synth.rpt -pb pen_plotter_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sun Dec  8 21:13:57 2024...

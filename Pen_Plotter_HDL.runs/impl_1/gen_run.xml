@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1733663602">
+  <File Type="ROUTE-PWR" Name="pen_plotter_power_routed.rpt"/>
+  <File Type="PA-TCL" Name="pen_plotter.tcl"/>
+  <File Type="BITSTR-MMI" Name="pen_plotter.mmi"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="pen_plotter_methodology_drc_opted.rpt"/>
+  <File Type="INIT-TIMING" Name="pen_plotter_timing_summary_init.rpt"/>
+  <File Type="ROUTE-PWR-SUM" Name="pen_plotter_power_summary_routed.pb"/>
+  <File Type="REPORTS-TCL" Name="pen_plotter_reports.tcl"/>
+  <File Type="OPT-TIMING" Name="pen_plotter_timing_summary_opted.rpt"/>
+  <File Type="OPT-DCP" Name="pen_plotter_opt.dcp"/>
+  <File Type="OPT-DRC" Name="pen_plotter_drc_opted.rpt"/>
+  <File Type="OPT-HWDEF" Name="pen_plotter.hwdef"/>
+  <File Type="PWROPT-DCP" Name="pen_plotter_pwropt.dcp"/>
+  <File Type="PWROPT-DRC" Name="pen_plotter_drc_pwropted.rpt"/>
+  <File Type="PWROPT-TIMING" Name="pen_plotter_timing_summary_pwropted.rpt"/>
+  <File Type="PLACE-DCP" Name="pen_plotter_placed.dcp"/>
+  <File Type="PLACE-IO" Name="pen_plotter_io_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="pen_plotter_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="pen_plotter_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="pen_plotter_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="pen_plotter_control_sets_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="pen_plotter_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="pen_plotter_incremental_reuse_pre_placed.rpt"/>
+  <File Type="BG-BIN" Name="pen_plotter.bin"/>
+  <File Type="PLACE-TIMING" Name="pen_plotter_timing_summary_placed.rpt"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="pen_plotter_postplace_pwropt.dcp"/>
+  <File Type="BITSTR-MSK" Name="pen_plotter.msk"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="pen_plotter_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="pen_plotter_physopt.dcp"/>
+  <File Type="PHYSOPT-DRC" Name="pen_plotter_drc_physopted.rpt"/>
+  <File Type="BITSTR-RBT" Name="pen_plotter.rbt"/>
+  <File Type="PHYSOPT-TIMING" Name="pen_plotter_timing_summary_physopted.rpt"/>
+  <File Type="ROUTE-ERROR-DCP" Name="pen_plotter_routed_error.dcp"/>
+  <File Type="ROUTE-DCP" Name="pen_plotter_routed.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="pen_plotter_routed_bb.dcp"/>
+  <File Type="ROUTE-DRC" Name="pen_plotter_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="pen_plotter_drc_routed.pb"/>
+  <File Type="ROUTE-DRC-RPX" Name="pen_plotter_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="pen_plotter_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="pen_plotter_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="pen_plotter_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-PWR-RPX" Name="pen_plotter_power_routed.rpx"/>
+  <File Type="ROUTE-STATUS" Name="pen_plotter_route_status.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="pen_plotter_route_status.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="pen_plotter_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-TIMING-PB" Name="pen_plotter_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMING-RPX" Name="pen_plotter_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-SIMILARITY" Name="pen_plotter_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="pen_plotter_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW" Name="pen_plotter_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="pen_plotter_bus_skew_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="pen_plotter_bus_skew_routed.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="pen_plotter_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="pen_plotter_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="pen_plotter_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="pen_plotter_timing_summary_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="pen_plotter_timing_summary_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="pen_plotter_bus_skew_postroute_physopted.rpt"/>
+  <File Type="BG-BIT" Name="pen_plotter.bit"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="pen_plotter_bus_skew_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="pen_plotter_bus_skew_postroute_physopted.rpx"/>
+  <File Type="BITSTR-NKY" Name="pen_plotter.nky"/>
+  <File Type="BITSTR-BMM" Name="pen_plotter_bd.bmm"/>
+  <File Type="PDI-FILE" Name="pen_plotter.pdi"/>
+  <File Type="RCFI_FILE" Name="pen_plotter.rcfi"/>
+  <File Type="CFI_FILE" Name="pen_plotter.cfi"/>
+  <File Type="RNPI_FILE" Name="pen_plotter.rnpi"/>
+  <File Type="NPI_FILE" Name="pen_plotter.npi"/>
+  <File Type="RBD_FILE" Name="pen_plotter.rbd"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="pen_plotter.ltx"/>
+  <File Type="BITSTR-SYSDEF" Name="pen_plotter.sysdef"/>
+  <File Type="BG-BGN" Name="pen_plotter.bgn"/>
+  <File Type="BG-DRC" Name="pen_plotter.drc"/>
+  <File Type="RDI-RDI" Name="pen_plotter.vdi"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <File Type="ROUTE-RQS" Name="pen_plotter_routed.rqs"/>
+  <File Type="POSTROUTE-PHYSOPT-RQS" Name="pen_plotter_postroute_physopted.rqs"/>
+  <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/limit_switch.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/servo.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/stepper_motor_bottom.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/stepper_motor_top.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/uart.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/pen_plotter.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="pen_plotter"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/new/constraints.xdc">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <File Path="$PSRCDIR/utils_1/imports/synth_1/pen_plotter.dcp">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedInSteps" Val="synth_1"/>
+        <Attr Name="AutoDcp" Val="1"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+  </Strategy>
+</GenRun>
