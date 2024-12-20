@@ -7,11 +7,12 @@
 //  但 Tower Pro SG90 這台他媽的是 0.54ms -> 2.54ms TMD
 //---------------------------------------------------
 
-module servo(clk, reset, servo);
+module servo(clk, reset, servo, done);
 
 input clk;
 input reset;
 output wire servo;
+output reg done;
 
 localparam PWM_PERIOD = 2000000;  // 20ms (週期對應的計數)
 localparam MIN_WIDTH  = 54000;   // 1ms (伺服最小脈衝寬度)
@@ -51,10 +52,15 @@ always @(posedge clk) begin
             else
                 control <= control - STEP;
 
-            if (control >= MAX_WIDTH)
+            if (control >= MAX_WIDTH) begin
                 toggle <= 0;
-            else if (control <= MIN_WIDTH)
+                done <= 1'b1; // Signal completion of forward rotation
+            end else if (control <= MIN_WIDTH) begin
                 toggle <= 1;
+                done <= 1'b1; // Signal completion of backward rotation
+            end else begin
+                done <= 1'b0;
+            end
         end
     end
 end
