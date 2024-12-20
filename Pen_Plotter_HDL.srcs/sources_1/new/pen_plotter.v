@@ -6,8 +6,7 @@ btm_IN2, btm_IN3, btm_IN4, btm_ENA, btm_ENB, btm_done, top_IN1, top_IN2, top_IN3
 // inputs
 input             clk;
 input             reset;
-// input             rx;
-// input [7:0]       switches;
+input             rx;
 input             start;
 input             send_data_button;
 input             collision_in;
@@ -23,9 +22,8 @@ input [15:0]      top_step;
 input             top_dir;
 
 // outputs
-output wire       servo_pwm;
-// output wire  [7:0] led;
-// output wire       tx;
+output wire        servo_pwm;
+output wire        tx;
 output wire        collision_out;
 output wire        btm_IN1;
 output wire        btm_IN2;
@@ -53,11 +51,9 @@ wire               btm_start;
 // wire               btm_start_op;
 wire               start_pb;
 wire               start_op;
-wire [7:0]         led;
-wire               tx;
-wire               rx;
-wire [7:0]         switches;
 wire               data_ready;
+wire               tell_py_start_to_send_data;
+wire [7:0]         rx_data;
 
 // reg
 
@@ -68,10 +64,10 @@ onepulse d1(rst_pb, clk, rst_op);
 // debounce d4(btm_start_pb, btm_start, clk);
 // onepulse d5(btm_start, clk, btm_start_op);
 debounce d6(start_pb, start, clk);
-onepulse d7(start, clk, start_op);
+onepulse d7(start_pb, clk, start_op);
 
 servo servo_motor(clk, rst_op, servo_pwm);
-uart_top uart(clk, rx, rst_op, switches, send_data_button, led, tx, data_ready, tell_py_start_to_send_data);
+uart_top uart(clk, rx, rst_op, send_data_button, tx, data_ready, tell_py_start_to_send_data, rx_data);
 limit_switch limit_sw(clk, collision_in, collision_out);
 stepper_motor_bottom motor_btm(clk, btm_step, btm_start, btm_dir, btm_IN1, btm_IN2, btm_IN3, btm_IN4, btm_ENA, btm_done);
 stepper_motor_top motor_top(clk, top_step, top_start, top_dir, top_IN1, top_IN2, top_IN3, top_IN4, top_ENA, top_done);
@@ -111,14 +107,28 @@ always@(posedge clk) begin
     if(rst_op) begin
         state <= IDLE:
         counter <= 7'b0;
-    end
-    else begin
+    end else begin
         state <= next_state;
         counter <= next_counter;
     end
 end
 
-assign tell_py_start_to_send_data = start_op;
+always@(posedge clk) begin
+    if(rst_op) begin
+        stable_counter <= 0;
+    end
+    else if(state == WAIT_TO_STABLE)begin
+        if(stable_counter >= 127) begin
+            stable_counter <= 0;
+        end
+        else begin
+            stable_counter <= stable_counter + 1;
+        end 
+    end
+    else begin
+        stable_counter <= 0;
+    end
+end
 
 always@(*) begin
     case(state)
@@ -151,27 +161,63 @@ always@(*) begin
             end
         end        
         RECEIVE_X_DIR: begin
-            
+            if(data_ready) next_state = SEND_X_DIR_COMPLETE;
+            else next_state = RECEIVE_X_DIR;
+            next_X_step = 0;
+            next_X_dir = rx_data;
+            next_Y_step = 0;
+            next_Y_dir = 0; 
+            next_Z_axis = 0;
         end       
         SEND_X_DIR_COMPLETE: begin
+            if(tell_py_start_to_send_data) next_state = RECEIVE_X_STEP;
+            else next_state = SEND_X_DIR_COMPLETE;
         end 
         RECEIVE_X_STEP: begin
+            if(data_ready) next_state = SEND_X_STEP_COMPLETE;
+            else next_state = RECEIVE_X_STEP;
+            next_X_step = rx_data;
+            next_Y_step = 0;
+            next_Y_dir = 0; 
+            next_Z_axis = 0;
         end      
         SEND_X_STEP_COMPLETE: begin
+            if(tell_py_start_to_send_data) next_state = RECEIVE_Y_DIR;
+            else next_state = SEND_X_STEP_COMPLETE;
         end
         RECEIVE_Y_DIR: begin
+            if(data_ready) next_state = SEND_Y_DIR_COMPLETE;
+            else next_state = RECEIVE_Y_DIR;
+            next_Y_step = 0;
+            next_Y_dir = rx_data; 
+            next_Z_axis = 0;
         end       
         SEND_Y_DIR_COMPLETE: begin
+            if(tell_py_start_to_send_data) next_state = RECEIVE_Y_STEP;
+            else next_state = SEND_Y_DIR_COMPLETE;
         end 
         RECEIVE_Y_STEP: begin
+            if(data_ready) next_state = SEND_Y_STEP_COMPLETE;
+            else next_state = RECEIVE_Y_STEP;
+            next_Y_step = rx_data;
+            next_Z_axis = 0;
         end      
         SEND_Y_STEP_COMPLETE: begin
+            if(tell_py_start_to_send_data) next_state = RECEIVE_Z;
+            else next_state = SEND_Y_STEP_COMPLETE;
         end
         RECEIVE_Z: begin
+            if(data_ready) next_state = SEND_Z_COMPLETE;
+            else next_state = RECEIVE_Z;
+            next_Z_axis = rx_data;
         end           
         SEND_Z_COMPLETE: begin
+            if(tell_py_start_to_send_data) next_state = WAIT_TO_STABLE;
+            else next_state = SEND_Z_COMPLETE;
         end     
         WAIT_TO_STABLE: begin
+            if(stable_counter == 19) next_state = EXECUTION;
+            else next_state = WAIT_TO_STABLE;
         end      
         EXECUTION: begin
             // TODO: 處理碰撞邊界(直接下一步)
@@ -202,6 +248,7 @@ always@(*) begin
                 next_counter = 7'b0;
             end
         end  
+        default: next_state = IDLE;
     endcase
 end
 

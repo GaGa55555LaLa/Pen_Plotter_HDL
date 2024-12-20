@@ -1,15 +1,13 @@
-module uart_top (clk, rx, rst, switches, send_data_button, led, tx, data_ready, tell_py_start_to_send_data);
+module uart_top (clk, rx, rst, send_data_button, tx, data_ready, tell_py_start_to_send_data, rx_data);
     input wire clk;
     input wire rx;
     input wire rst;
-    input wire [7:0] switches;
     input wire send_data_button;
     input wire tell_py_start_to_send_data;
-    output reg [7:0] led;
     output wire tx;
     output wire data_ready;
+    output reg [7:0] rx_data;
 
-    wire [7:0] rx_data;
     wire tx_ready;
     
     uart_receiver uart_rx (
@@ -23,20 +21,12 @@ module uart_top (clk, rx, rst, switches, send_data_button, led, tx, data_ready, 
     uart_transmitter uart_tx (
         .clk(clk),
         .rst(rst),
-        .tx_data(switches),
         .send(send_data_button),
         .tx(tx),
         .tx_ready(tx_ready),
         .tell_py_start_to_send_data(tell_py_start_to_send_data)
     );
 
-    always @(posedge clk) begin
-        if (rst) begin
-            led <= 8'b0;
-        end else if (data_ready) begin
-            led <= rx_data;
-        end
-    end
 endmodule
 
 module uart_receiver (clk, rx, rst, rx_data, data_ready);
@@ -79,7 +69,6 @@ module uart_receiver (clk, rx, rst, rx_data, data_ready);
             rx_data <= 8'b0;
         end else begin
             data_ready <= 0;  // 默認清除data_ready
-            
             if (!receiving && rx_sync2 == 1'b0) begin  // 檢測起始位
                 receiving <= 1;
                 baud_counter <= BAUD_TICK_COUNT/2;  // 設為半個波特週期
@@ -108,10 +97,9 @@ module uart_receiver (clk, rx, rst, rx_data, data_ready);
     end
 endmodule
 
-module uart_transmitter (clk, rst, tx_data, send, tx, tx_ready, tell_py_start_to_send_data);
+module uart_transmitter (clk, rst, send, tx, tx_ready, tell_py_start_to_send_data);
     input wire clk;
     input wire rst;
-    input wire [7:0] tx_data;
     input wire send;
     input tell_py_start_to_send_data;
     output reg tx;
@@ -134,9 +122,9 @@ module uart_transmitter (clk, rst, tx_data, send, tx, tx_ready, tell_py_start_to
             transmitting <= 0;
             tx_ready <= 1;
         end else begin
-            if (send && tx_ready && tell_py_start_to_send_data) begin
+            if (tx_ready && tell_py_start_to_send_data) begin
                 transmitting <= 1;
-                shift_reg <= tx_data;
+                shift_reg <= 1; // 傳送執行完畢的訊號給電腦
                 bit_counter <= 0;
                 baud_counter <= BAUD_TICK_COUNT;
                 tx <= 0;  // 起始位
