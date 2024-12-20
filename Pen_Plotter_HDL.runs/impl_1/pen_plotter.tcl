@@ -17,7 +17,7 @@ proc create_report { reportName command } {
   }
 }
 namespace eval ::optrace {
-  variable script "C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.runs/impl_1/pen_plotter.tcl"
+  variable script "C:/Users/GaGa-PC/Desktop/TsingHua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.runs/impl_1/pen_plotter.tcl"
   variable category "vivado_impl"
 }
 
@@ -130,15 +130,15 @@ OPTRACE "create in-memory project" START { }
   set_param project.singleFileAddWarning.threshold 0
 OPTRACE "create in-memory project" END { }
 OPTRACE "set parameters" START { }
-  set_property webtalk.parent_dir {C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.cache/wt} [current_project]
-  set_property parent.project_path {C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.xpr} [current_project]
-  set_property ip_output_repo {{C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.cache/ip}} [current_project]
+  set_property webtalk.parent_dir C:/Users/GaGa-PC/Desktop/TsingHua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.cache/wt [current_project]
+  set_property parent.project_path C:/Users/GaGa-PC/Desktop/TsingHua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.xpr [current_project]
+  set_property ip_output_repo C:/Users/GaGa-PC/Desktop/TsingHua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
-  add_files -quiet {{C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.runs/synth_1/pen_plotter.dcp}}
+  add_files -quiet C:/Users/GaGa-PC/Desktop/TsingHua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.runs/synth_1/pen_plotter.dcp
 OPTRACE "read constraints: implementation" START { }
-  read_xdc {{C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/constrs_1/new/constraints.xdc}}
+  read_xdc C:/Users/GaGa-PC/Desktop/TsingHua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.srcs/constrs_1/new/constraints.xdc
 OPTRACE "read constraints: implementation" END { }
 OPTRACE "add files" END { }
 OPTRACE "link_design" START { }

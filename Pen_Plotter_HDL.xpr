@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="61" Path="C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.xpr">
+<Project Version="7" Minor="61" Path="C:/Users/GaGa-PC/Desktop/TsingHua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="3917a2040d0244ebb30510f889c07381"/>

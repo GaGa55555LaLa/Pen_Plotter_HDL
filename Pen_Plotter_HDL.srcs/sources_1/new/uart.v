@@ -6,7 +6,7 @@ module uart_top (clk, rx, rst, send_data_button, tx, data_ready, tell_py_start_t
     input wire tell_py_start_to_send_data;
     output wire tx;
     output wire data_ready;
-    output reg [7:0] rx_data;
+    output wire [7:0] rx_data;
 
     wire tx_ready;
     
@@ -15,7 +15,7 @@ module uart_top (clk, rx, rst, send_data_button, tx, data_ready, tell_py_start_t
         .rx(rx),
         .rst(rst),
         .rx_data(rx_data),
-        .data_ready(data_ready),
+        .data_ready(data_ready)
     );
 
     uart_transmitter uart_tx (
@@ -34,7 +34,7 @@ module uart_receiver (clk, rx, rst, rx_data, data_ready);
     input wire clk;        
     input wire rx;         
     input wire rst;        
-    output reg [7:0] rx_data ;
+    output reg [7:0] rx_data;
     output reg data_ready;  
 
     parameter BAUD_RATE = 230400;
