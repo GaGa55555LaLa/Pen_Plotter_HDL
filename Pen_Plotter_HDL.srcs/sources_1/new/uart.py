@@ -27,7 +27,7 @@ def receive_data_from_fpga():
         return value
     return None  # 若無資料，回傳 None
 
-data_list = [1, 200, 1, 300, 1, 0, 100, 0, 200, 1, 0, 150, 1, 100, 0];
+data_list = [1, 200, 1, 255, 1, 0, 100, 0, 200, 1, 0, 150, 1, 100, 0];
 data_iterator = iter(data_list)  # 將清單轉換為迭代器
 
 try:

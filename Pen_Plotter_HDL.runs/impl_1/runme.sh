@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/GaGa-PC/Desktop/Tsing Hua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.runs/impl_1'
+HD_PWD='C:/Users/GaGa-PC/Desktop/TsingHua/HardwareDesign/FinalProject/Pen_Plotter_HDL/Pen_Plotter_HDL.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
