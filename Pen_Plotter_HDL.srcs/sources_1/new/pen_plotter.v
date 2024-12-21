@@ -239,7 +239,7 @@ always@(*) begin
         end    
         RESETTING_L: begin
             next_top_start = 1'b1;
-            next_top_dir = 1'b1;  //spin left?
+            next_top_dir = 1'b0;  //spin left (CW)
             next_top_step = 16'd438;   //大約7公分
             if (collision_out == 1'b0) begin
                 next_top_start = 1'b0;
@@ -248,7 +248,7 @@ always@(*) begin
         end    
         RESETTING_R: begin
             next_top_start = 1'b1;
-            next_top_dir = 1'b0;  //spin right?
+            next_top_dir = 1'b1;  //spin right (CCE)
             next_top_step = 16'd313;   //大約5公分
             if (top_done) begin
                 next_top_start = 1'b0;
