@@ -1,13 +1,11 @@
-module uart_top (clk, rx, rst, send_data_button, tx, data_ready, tell_py_start_to_send_data, rx_data);
+module uart_top (clk, rx, rst, tx, data_ready, tell_py_start_to_send_data, rx_data);
     input wire clk;
     input wire rx;
     input wire rst;
-    input wire send_data_button;
     input wire tell_py_start_to_send_data;
     output wire tx;
     output wire data_ready;
     output wire [7:0] rx_data;
-
     wire tx_ready;
     
     uart_receiver uart_rx (
@@ -21,7 +19,6 @@ module uart_top (clk, rx, rst, send_data_button, tx, data_ready, tell_py_start_t
     uart_transmitter uart_tx (
         .clk(clk),
         .rst(rst),
-        .send(send_data_button),
         .tx(tx),
         .tx_ready(tx_ready),
         .tell_py_start_to_send_data(tell_py_start_to_send_data)
@@ -97,10 +94,9 @@ module uart_receiver (clk, rx, rst, rx_data, data_ready);
     end
 endmodule
 
-module uart_transmitter (clk, rst, send, tx, tx_ready, tell_py_start_to_send_data);
+module uart_transmitter (clk, rst, tx, tx_ready, tell_py_start_to_send_data);
     input wire clk;
     input wire rst;
-    input wire send;
     input tell_py_start_to_send_data;
     output reg tx;
     output reg tx_ready;

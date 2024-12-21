@@ -1,5 +1,5 @@
 
-module pen_plotter(clk, reset, rx, start, collision_in, servo_pwm, tx, collision_out, btm_IN1, 
+module pen_plotter(clk, reset, rx, start, collision_in, return_to_0, servo_pwm, tx, collision_out, btm_IN1, 
 btm_IN2, btm_IN3, btm_IN4, btm_ENA, btm_ENB, top_IN1, top_IN2, top_IN3, top_IN4, top_ENA, top_ENB, AN, seg, start_signal);
 
 // inputs
@@ -8,16 +8,7 @@ input             reset;
 input             rx;
 input             start;
 input             collision_in;
-// input             btm_stop_motor;
-// input [3:0]       btm_angle_15;
-input [15:0]      btm_step;
-// input             btm_start;
-input             btm_dir;
-// input             top_stop_motor;
-// input [3:0]       top_angle_15;
-input [15:0]      top_step;
-// input             top_start;
-input             top_dir;
+input             return_to_0;
 
 // outputs
 output wire        servo_pwm;
@@ -46,35 +37,35 @@ wire               rst_pb;
 wire               rst_op;
 wire               top_start;
 wire               btm_start;
-// wire               top_start_pb;
-// wire               top_start_op;
-// wire               btm_start_pb;
-// wire               btm_start_op;
 wire               start_pb;
 wire               start_op;
 wire               data_ready;
 wire               tell_py_start_to_send_data;
 wire [7:0]         rx_data;
-wire        btm_done;
-wire        top_done;
+wire               btm_done;
+wire               top_done;
+wire [7:0]         btm_step;
+wire               btm_dir;
+wire [7:0]         top_step;
+wire               top_dir;
+wire               return_to_0_db;
+wire               return_to_0_op;
 
 // reg
 
 debounce d0(rst_pb, reset, clk);
 onepulse d1(rst_pb, clk, rst_op);
-// debounce d2(top_start_pb, top_start, clk);
-// onepulse d3(top_start, clk, top_start_op);
-// debounce d4(btm_start_pb, btm_start, clk);
-// onepulse d5(btm_start, clk, btm_start_op);
-debounce d6(start_pb, start, clk);
-onepulse d7(start_pb, clk, start_op);
+debounce d2(start_pb, start, clk);
+onepulse d3(start_pb, clk, start_op);
+debounce d4(return_to_0_pb, return_to_0, clk);
+onepulse d5(return_to_0_pb, clk, return_to_0_op);
 
-servo servo_motor(clk, rst_op, servo_pwm);
-uart_top uart(clk, rx, rst_op, send_data_button, tx, data_ready, tell_py_start_to_send_data, rx_data);
-limit_switch limit_sw(clk, collision_in, collision_out);
-stepper_motor_bottom motor_btm(clk, btm_step, btm_start, btm_dir, btm_IN1, btm_IN2, btm_IN3, btm_IN4, btm_ENA, btm_done);
-stepper_motor_top motor_top(clk, top_step, top_start, top_dir, top_IN1, top_IN2, top_IN3, top_IN4, top_ENA, top_done);
-fsm fsm(clk, start_op, rst_op, rx_data, tell_py_start_to_send_data, data_ready, state);
+servo servo_motor(.clk(clk), .reset(rst_op), .servo(servo_pwm), .done(/* ? */));
+uart_top uart(.clk(clk), .rx(rx), .rst(rst_op), .tx(tx), .data_ready(data_ready), .tell_py_start_to_send_data(tell_py_start_to_send_data), .rx_data(rx_data));
+limit_switch limit_sw(.clk(clk), .btn_in(collision_in), .btn_out(collision_out));
+stepper_motor_bottom motor_btm(.clk(clk), .step(btm_step), .start(btm_start), .dir(btm_dir), .IN1(btm_IN1), .IN2(btm_IN2), .IN3(btm_IN3), .IN4(btm_IN4), .ENA(btm_ENA), .ENB(btm_ENB), .done(btm_done));
+stepper_motor_top motor_top(.clk(clk), .step(top_step), .start(top_start), .dir(top_dir), .IN1(top_IN1), .IN2(top_IN2), .IN3(top_IN3), .IN4(top_IN4), .ENA(top_ENA), .ENB(top_ENB), .done(top_done));
+fsm fsm(.clk(clk), .start_op(start_op), .rst_op(rst_op), .btm_step(btm_step), .btm_start(btm_start), .btm_dir(btm_dir), .btm_done(btm_done), .top_step(top_step), .top_start(top_start), .top_dir(top_dir), .top_done(top_done), .rx_data(rx_data), .tell_py_start_to_send_data(tell_py_start_to_send_data), .data_ready(data_ready), .state(state), .collision_out(collision_out), .return_to_0_op(return_to_0_op));
 
 
 reg seg_slow;
@@ -126,7 +117,7 @@ always @(*) begin
             4'b0101: seg = 7'b0100100;  // Display 5
             4'b0110: seg = 7'b0100000;  // Display 6
             4'b0111: seg = 7'b0001111;  // Display 7
-            4'b1000: seg = 7'b0000000;  // Display 8zzzzzzzzz
+            4'b1000: seg = 7'b0000000;  // Display 8
             4'b1001: seg = 7'b0000100;  // Display 9
             4'b1010: seg = 7'b0001000;  // Display A
             4'b1011: seg = 7'b1100000;  // Display B
@@ -143,7 +134,7 @@ assign start_signal = start;
 
 endmodule
 
-module fsm (clk, start_op, rst_op, btm_step, btm_start, btm_dir, btm_done, top_step, top_start, top_dir, top_done, rx_data, tell_py_start_to_send_data, data_ready, state);
+module fsm (clk, start_op, rst_op, btm_step, btm_start, btm_dir, btm_done, top_step, top_start, top_dir, top_done, rx_data, tell_py_start_to_send_data, data_ready, state, collision_out, return_to_0_op);
 
 input              clk;
 input              start_op;
@@ -151,62 +142,70 @@ input              rst_op;
 input [7:0]        rx_data;
 input              data_ready;
 input              btm_done, top_done;
+input              collision_out;
+input              return_to_0_op;
 
-output reg  [3:0]         state;
-reg  [3:0]         next_state;
-reg  [6:0]         stable_counter;
-reg  [7:0]         X_step;
-reg                X_dir;
-reg  [7:0]         Y_step;
-reg                Y_dir; 
-reg                Z_axis; // 1  上升 / 0 下降
-reg  [7:0]         next_X_step;
-reg                next_X_dir;
-reg  [7:0]         next_Y_step;
-reg                next_Y_dir; 
-reg                next_Z_axis;
+output reg [3:0]  state;
+reg [3:0]         next_state;
+reg [6:0]         stable_counter;
+reg               Z_axis; // 1  上升 / 0 下降
+reg [7:0]         next_top_step;
+reg               next_top_dir;
+reg [7:0]         next_btm_step;
+reg               next_btm_dir; 
+reg               next_Z_axis;
+reg               next_top_start;
+reg               next_btm_start;
 
-output reg         tell_py_start_to_send_data;
-output [15:0]      btm_step, top_step;
-output             btm_start, top_start;
-output             btm_dir, top_dir;
+output reg        tell_py_start_to_send_data;
+output reg [7:0]  btm_step, top_step;
+output reg        btm_start, top_start;
+output reg        btm_dir, top_dir;
 //for test
 
-parameter IDLE                  = 4'd0;   // 閒置
-parameter RESETTING_L           = 4'd14;  // 往回走 未接觸 limit switch
-parameter RESETTING_R           = 4'd15;  // 往中心走 已接觸 limit switch
-parameter RECEIVE_X_DIR         = 4'd1;   // 接收 X 軸方向
-parameter SEND_X_DIR_COMPLETE   = 4'd2;   // 發送 X 軸方向接收完畢
-parameter RECEIVE_X_STEP        = 4'd3;   // 接收 X 軸步數
-parameter SEND_X_STEP_COMPLETE  = 4'd4;   // 發送 X 軸步數接收完畢
-parameter RECEIVE_Y_DIR         = 4'd5;   // 接收 Y 軸方向
-parameter SEND_Y_DIR_COMPLETE   = 4'd6;   // 發送 Y 軸方向接收完畢
-parameter RECEIVE_Y_STEP        = 4'd7;   // 接收 Y 軸步數
-parameter SEND_Y_STEP_COMPLETE  = 4'd8;   // 發送 Y 軸步數接收完畢
-parameter RECEIVE_Z             = 4'd9;   // 接收 Z 軸狀態
-parameter SEND_Z_COMPLETE       = 4'd10;  // 發送 Z 軸狀態接收完畢
-parameter WAIT_TO_STABLE        = 4'd11;  // 等待訊號穩定
-parameter EXECUTION             = 4'd12;  // 執行指令 
-parameter EXECUTION_COMPLETE    = 4'd13;  // 完成指令並回傳
+parameter IDLE                    = 4'd0;   // 閒置
+parameter RESETTING_L             = 4'd1;  // 往回走 未接觸 limit switch
+parameter RESETTING_R             = 4'd2;  // 往中心走 已接觸 limit switch
+parameter RECEIVE_TOP_DIR         = 4'd3;   // 接收 X 軸方向
+parameter SEND_TOP_DIR_COMPLETE   = 4'd4;   // 發送 X 軸方向接收完畢
+parameter RECEIVE_TOP_STEP        = 4'd5;   // 接收 X 軸步數
+parameter SEND_TOP_STEP_COMPLETE  = 4'd6;   // 發送 X 軸步數接收完畢
+parameter RECEIVE_BTM_DIR         = 4'd7;   // 接收 Y 軸方向
+parameter SEND_BTM_DIR_COMPLETE   = 4'd8;   // 發送 Y 軸方向接收完畢
+parameter RECEIVE_BTM_STEP        = 4'd9;   // 接收 Y 軸步數
+parameter SEND_BTM_STEP_COMPLETE  = 4'd10;   // 發送 Y 軸步數接收完畢
+parameter RECEIVE_Z               = 4'd11;   // 接收 Z 軸狀態
+parameter SEND_Z_COMPLETE         = 4'd12;  // 發送 Z 軸狀態接收完畢
+parameter WAIT_TO_STABLE          = 4'd13;  // 等待訊號穩定
+parameter EXECUTION               = 4'd14;  // 執行指令 
+parameter EXECUTION_COMPLETE      = 4'd15;  // 完成指令並回傳
 
-wire [3:0]         state;
-wire [3:0]         next_state;
-wire [6:0]         counter;
-wire [6:0]         next_counter;
+reg [6:0]         counter;
+reg [6:0]         next_counter;
 
 always@(posedge clk) begin
     if(rst_op) begin
-        state <= IDLE:
+        state <= IDLE;
         counter <= 7'b0;
+        top_step <= 0;
+        btm_step <= 0;
+        Z_axis <= 1;
+        top_dir <= 0;
+        btm_dir <= 0;
+        btm_start <= 0;
+        top_start <= 0;
+        tell_py_start_to_send_data <= 0;
     end else begin
         state <= next_state;
         counter <= next_counter;
-        X_step <= next_X_step;
-        Y_step <= next_Y_step;
+        top_step <= next_top_step;
+        btm_step <= next_btm_step;
         Z_axis <= next_Z_axis;
-        X_dir <= next_X_dir;
-        Y_dir <= next_Y_dir;
-        tell_py_start_to_send_data <= (start_op || state == SEND_X_DIR_COMPLETE || state == SEND_X_STEP_COMPLETE || state == SEND_Y_DIR_COMPLETE || state == SEND_Y_STEP_COMPLETE);
+        top_dir <= next_top_dir;
+        btm_dir <= next_btm_dir;
+        btm_start <= next_btm_start;
+        top_start <= next_top_start;
+        tell_py_start_to_send_data <= (start_op || state == SEND_TOP_DIR_COMPLETE || state == SEND_TOP_STEP_COMPLETE || state == SEND_BTM_DIR_COMPLETE || state == SEND_BTM_STEP_COMPLETE);
     end
 end
 
@@ -232,12 +231,10 @@ always@(*) begin
     case(state)
         IDLE: begin
             // TODO: 歸零
-            if (rst_op) begin
-                top_start = 1'b0;
-                btm_start = 1'b0;
+            if (return_to_0_op) begin
                 next_state = RESETTING_L;
             end
-            if(start_op) next_state = RECEIVE_X_DIR;
+            if(start_op) next_state = RECEIVE_TOP_DIR;
             else next_state = IDLE;
         end    
         RESETTING_L: begin
@@ -245,64 +242,64 @@ always@(*) begin
             top_dir = 1'b0;  //spin left (CW)
             top_step = 16'd438;   //大約7公分
             if (collision_out == 1'b0) begin
-                top_start = 1'b0;
+                next_top_start = 1'b0;
                 next_state = RESETTING_R;
-            end
+            end else next_state = RESETTING_L;
         end    
         RESETTING_R: begin
             top_start = 1'b1;
             top_dir = 1'b1;  //spin right (CCE)
             top_step = 16'd313;   //大約5公分
             if (top_done) begin
-                top_start = 1'b0;
+                next_top_start = 1'b0;
                 next_state = IDLE;
-            end
+            end else next_state = RESETTING_R;
         end        
-        RECEIVE_X_DIR: begin
-            if(data_ready) next_state = SEND_X_DIR_COMPLETE;
-            else next_state = RECEIVE_X_DIR;
-            next_X_step = 0;
-            next_X_dir = rx_data;
-            next_Y_step = 0;
-            next_Y_dir = 0; 
+        RECEIVE_TOP_DIR: begin
+            if(data_ready) next_state = SEND_TOP_DIR_COMPLETE;
+            else next_state = RECEIVE_TOP_DIR;
+            next_top_step = 0;
+            next_top_dir = rx_data;
+            next_top_step = 0;
+            next_btm_dir = 0; 
             next_Z_axis = 0;
         end       
-        SEND_X_DIR_COMPLETE: begin
-            if(tell_py_start_to_send_data) next_state = RECEIVE_X_STEP;
-            else next_state = SEND_X_DIR_COMPLETE;
+        SEND_TOP_DIR_COMPLETE: begin
+            if(tell_py_start_to_send_data) next_state = RECEIVE_TOP_STEP;
+            else next_state = SEND_TOP_DIR_COMPLETE;
         end 
-        RECEIVE_X_STEP: begin
-            if(data_ready) next_state = SEND_X_STEP_COMPLETE;
-            else next_state = RECEIVE_X_STEP;
-            next_X_step = rx_data;
-            next_Y_step = 0;
-            next_Y_dir = 0; 
+        RECEIVE_TOP_STEP: begin
+            if(data_ready) next_state = SEND_TOP_STEP_COMPLETE;
+            else next_state = RECEIVE_TOP_STEP;
+            next_top_step = rx_data;
+            next_btm_step = 0;
+            next_btm_dir = 0; 
             next_Z_axis = 0;
         end      
-        SEND_X_STEP_COMPLETE: begin
-            if(tell_py_start_to_send_data) next_state = RECEIVE_Y_DIR;
-            else next_state = SEND_X_STEP_COMPLETE;
+        SEND_TOP_STEP_COMPLETE: begin
+            if(tell_py_start_to_send_data) next_state = RECEIVE_BTM_DIR;
+            else next_state = SEND_TOP_STEP_COMPLETE;
         end
-        RECEIVE_Y_DIR: begin
-            if(data_ready) next_state = SEND_Y_DIR_COMPLETE;
-            else next_state = RECEIVE_Y_DIR;
-            next_Y_step = 0;
-            next_Y_dir = rx_data; 
+        RECEIVE_BTM_DIR: begin
+            if(data_ready) next_state = SEND_BTM_DIR_COMPLETE;
+            else next_state = RECEIVE_BTM_DIR;
+            next_btm_step = 0;
+            next_btm_dir = rx_data; 
             next_Z_axis = 0;
         end       
-        SEND_Y_DIR_COMPLETE: begin
-            if(tell_py_start_to_send_data) next_state = RECEIVE_Y_STEP;
-            else next_state = SEND_Y_DIR_COMPLETE;
+        SEND_BTM_DIR_COMPLETE: begin
+            if(tell_py_start_to_send_data) next_state = RECEIVE_BTM_STEP;
+            else next_state = SEND_BTM_DIR_COMPLETE;
         end 
-        RECEIVE_Y_STEP: begin
-            if(data_ready) next_state = SEND_Y_STEP_COMPLETE;
-            else next_state = RECEIVE_Y_STEP;
-            next_Y_step = rx_data;
+        RECEIVE_BTM_STEP: begin
+            if(data_ready) next_state = SEND_BTM_STEP_COMPLETE;
+            else next_state = RECEIVE_BTM_STEP;
+            next_btm_step = rx_data;
             next_Z_axis = 0;
         end      
-        SEND_Y_STEP_COMPLETE: begin
+        SEND_BTM_STEP_COMPLETE: begin
             if(tell_py_start_to_send_data) next_state = RECEIVE_Z;
-            else next_state = SEND_Y_STEP_COMPLETE;
+            else next_state = SEND_BTM_STEP_COMPLETE;
         end
         RECEIVE_Z: begin
             if(data_ready) next_state = SEND_Z_COMPLETE;
@@ -319,30 +316,28 @@ always@(*) begin
         EXECUTION: begin
             // TODO: 處理碰撞邊界(直接下一步)
             if (collision_out == 1'b0) begin
-                top_start = 1'b0;
-                btm_start = 1'b0;
-                next_state = RECEIVE_X_DIR;
-            end
-            // TODO: 一般執行:
-            top_start = 1'b1;
-            top_dir = X_dir;
-            top_step = X_step;
-            btm_start = 1'b1;
-            btm_dir = Y_dir;
-            btm_step = Y_dir;
-            if (top_done && btm_done) begin
-                top_start = 1'b0;
-                btm_start = 1'b0;
+                next_top_start = 1'b0;
+                next_btm_start = 1'b0;
                 next_state = EXECUTION_COMPLETE;
+            end
+            else begin
+                next_top_start = 1'b1;
+                next_btm_start = 1'b1;
+                if (top_done && btm_done) begin
+                    next_top_start = 1'b0;
+                    next_btm_start = 1'b0;
+                    next_state = EXECUTION_COMPLETE;
+                end
             end
         end           
         EXECUTION_COMPLETE: begin
             // TODO: 等待幾個 cycle 回到 RECEIVE_X_DIR
             if (counter == ~7'b0) begin
-                next_counter = counter + 1'b1;
-            end else begin
-                next_state = RECEIVE_X_DIR;
+                next_state = RECEIVE_TOP_DIR;
                 next_counter = 7'b0;
+            end else begin
+                next_state = EXECUTION_COMPLETE;
+                next_counter = counter + 1'b1;
             end
         end  
         default: next_state = IDLE;
