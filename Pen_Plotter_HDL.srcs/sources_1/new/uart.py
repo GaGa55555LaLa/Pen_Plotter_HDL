@@ -9,6 +9,22 @@ ser = serial.Serial(
     bytesize=serial.EIGHTBITS,
 )
 
+def read_motor_steps_from_file(filename):
+    """從 motor_steps_output.txt 讀取步數資料"""
+    motor_steps = []
+    with open(filename, "r", encoding="utf-8") as file:
+        for line in file.readlines():
+            # 解析每行中的步數資料 (X, C, Z)
+            parts = line.strip().split()
+            if len(parts) == 5:  # 確保每行有正確的 5 個資料
+                dirX = parts[0]
+                stepsX = int(parts[1])
+                dirC = parts[2]
+                stepsC = int(parts[3])
+                z = int(parts[4])
+                motor_steps.append((dirX, stepsX, dirC, stepsC, z))
+    return motor_steps
+
 def send_data_to_fpga(data):
     """發送資料到 FPGA"""
     if ser.is_open:
@@ -27,8 +43,9 @@ def receive_data_from_fpga():
         return value
     return None  # 若無資料，回傳 None
 
-data_list = [1, 200, 1, 255, 1, 0, 100, 0, 200, 1, 0, 150, 1, 100, 0];
-data_iterator = iter(data_list)  # 將清單轉換為迭代器
+
+motor_steps = read_motor_steps_from_file("motor_steps_output.txt")
+step_iterator = iter(motor_steps)  # 將清單轉換為迭代器
 
 try:
     print("開始與 FPGA 通信...")
@@ -41,12 +58,12 @@ try:
             if received_value == 1:  # 檢查是否接收到 1
                 try:
                     # 發送下一筆資料
-                    value_to_send = next(data_iterator)
+                    value_to_send = next(step_iterator)
                     send_data_to_fpga(value_to_send)
                 except StopIteration:
                     # 重置資料迭代器，完成後重新開始
-                    print("Data list is complete. Restarting...")
-                    data_iterator = iter(data_list)
+                    print("資料已全部傳送完畢")
+                    break;
         time.sleep(0.1)  # 減少迴圈的執行頻率
 except KeyboardInterrupt:
     print("使用者終止程序")
