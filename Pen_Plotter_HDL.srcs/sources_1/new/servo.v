@@ -7,10 +7,11 @@
 //  但 Tower Pro SG90 這台他媽的是 0.54ms -> 2.54ms TMD
 //---------------------------------------------------
 
-module servo(clk, reset, servo, done);
+module servo(clk, reset, dir, servo, done);
 
 input clk;
 input reset;
+input dir;
 output wire servo;
 output reg done;
 
@@ -23,7 +24,8 @@ localparam STEP       = 5000;     // 每次調整的步長(使轉動平滑)
 reg [20:0] counter;
 reg        servo_reg;
 reg [18:0] control;
-reg        toggle;
+// reg        toggle;
+// reg        up;
 
 
 always @(posedge clk) begin
@@ -32,7 +34,7 @@ always @(posedge clk) begin
         counter <= 0;
         servo_reg <= 0;
         control <= MIN_WIDTH;
-        toggle <= 1;
+        // toggle <= 1;
     end
     else begin
         
@@ -47,16 +49,16 @@ always @(posedge clk) begin
             servo_reg <= 0;
 
         if(counter == 0) begin
-            if (toggle)
+            if (dir)
                 control <= control + STEP;
             else
                 control <= control - STEP;
 
             if (control >= MAX_WIDTH) begin
-                toggle <= 0;
+                // toggle <= 0;
                 done <= 1'b1; // Signal completion of forward rotation
             end else if (control <= MIN_WIDTH) begin
-                toggle <= 1;
+                // toggle <= 1;
                 done <= 1'b1; // Signal completion of backward rotation
             end else begin
                 done <= 1'b0;
