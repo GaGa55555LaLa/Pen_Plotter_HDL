@@ -2,7 +2,7 @@ import serial
 import time
 
 ser = serial.Serial(
-    port='COM6',  # 看裝置管理員      
+    port='COM10',  # 看裝置管理員      
     baudrate=230400,   
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
@@ -10,19 +10,25 @@ ser = serial.Serial(
 )
 
 def read_motor_steps_from_file(filename):
-    """從 motor_steps_output.txt 讀取步數資料"""
+    """從 motor_steps_output.txt 讀取步數資料並扁平化"""
     motor_steps = []
     with open(filename, "r", encoding="utf-8") as file:
         for line in file.readlines():
             # 解析每行中的步數資料 (X, C, Z)
             parts = line.strip().split()
             if len(parts) == 5:  # 確保每行有正確的 5 個資料
-                dirX = parts[0]
+                if parts[0] == '+':
+                    dirX = 0;
+                else:
+                    dirX = 1;
                 stepsX = int(parts[1])
-                dirC = parts[2]
+                if parts[2] == '+':
+                    dirC = 0;
+                else:
+                    dirC = 1;
                 stepsC = int(parts[3])
                 z = int(parts[4])
-                motor_steps.append((dirX, stepsX, dirC, stepsC, z))
+                motor_steps.extend([dirX, stepsX, dirC, stepsC, z])  # 將資料展開到平鋪的列表中
     return motor_steps
 
 def send_data_to_fpga(data):

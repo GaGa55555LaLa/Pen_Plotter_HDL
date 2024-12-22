@@ -34,6 +34,7 @@ always @(posedge clk) begin
         counter <= 0;
         servo_reg <= 0;
         control <= MIN_WIDTH;
+        done <= 0;
         // toggle <= 1;
     end
     else begin
@@ -50,9 +51,9 @@ always @(posedge clk) begin
 
         if(counter == 0) begin
             if (dir)
-                control <= control + STEP;
+                control <= (control + STEP >= MAX_WIDTH)? MAX_WIDTH : control + STEP;
             else
-                control <= control - STEP;
+                control <= (control - STEP <= MIN_WIDTH)? MIN_WIDTH : control - STEP;
 
             if (control >= MAX_WIDTH) begin
                 // toggle <= 0;

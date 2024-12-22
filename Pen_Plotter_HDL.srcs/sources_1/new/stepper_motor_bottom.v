@@ -53,8 +53,7 @@ always @(posedge clk) begin
         clk_div <= 32'b0;
         step_state <= STEP1;
         step_count <= 16'd0;
-        // running <= 1'b0;
-        done <= 1'b1;
+        done <= 1'b0;
         IN1 <= 1'b0;
         IN2 <= 1'b0;
         IN3 <= 1'b0;
