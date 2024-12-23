@@ -17,15 +17,15 @@ def read_motor_steps_from_file(filename):
             # 解析每行中的步數資料 (X, C, Z)
             parts = line.strip().split()
             if len(parts) == 5:  # 確保每行有正確的 5 個資料
-                if parts[0] == '+':
-                    dirX = 0;
-                else:
+                if parts[0] == '-':
                     dirX = 1;
+                else:
+                    dirX = 0;
                 stepsX = int(parts[1])
                 if parts[2] == '+':
-                    dirC = 0;
-                else:
                     dirC = 1;
+                else:
+                    dirC = 0;
                 stepsC = int(parts[3])
                 z = int(parts[4])
                 motor_steps.extend([dirX, stepsX, dirC, stepsC, z])  # 將資料展開到平鋪的列表中

@@ -1,8 +1,9 @@
 
 `timescale 1ns / 1ps
 
-module stepper_motor_top(clk, step, start, dir, IN1, IN2, IN3, IN4, ENA, ENB, done);
+module stepper_motor_top(clk, reset, step, start, dir, IN1, IN2, IN3, IN4, ENA, ENB, done);
 input wire clk;
+input reset;
 // input wire stop_motor;
 // input wire [15:0] angle_15; // Desired angle (0-360 degrees)
 input wire [15:0] step; // Desired step
@@ -41,19 +42,19 @@ reg running;
 
 // Formula: steps = (angle * STEPS_PER_REV) / 360
 always @(posedge clk) begin
-    if (!start) begin
+    if (reset) begin
         target_steps <= 16'd0;
         CLK_DIV_MAX <= 32'b0;
     end else begin
         // target_steps <= ((angle_15 * 45)* STEPS_PER_REV) / 360;
         // target_steps <= 100;
         target_steps <= step;
-        CLK_DIV_MAX <= 32'd100000000 / step;
+        CLK_DIV_MAX <= 32'd50000000 / step;
     end
 end
 
 always @(posedge clk) begin
-    if (!start) begin
+    if (reset) begin
         clk_div <= 32'b0;
         step_state <= STEP1;
         step_count <= 16'd0;
@@ -66,63 +67,85 @@ always @(posedge clk) begin
         ENA <= 1'b1;
         ENB <= 1'b1;
     end else begin
-        if (step_count >= target_steps) begin
-            // running <= 1'b0;
-            done <= 1'b1;
+        if(start) begin
+            if (step_count >= target_steps) begin
+                // running <= 1'b0;
+                step_count <= target_steps;
+                done <= 1'b1;
+                IN1 <= 1'b0;
+                IN2 <= 1'b0;
+                IN3 <= 1'b0;
+                IN4 <= 1'b0;
+            end else if (clk_div >= CLK_DIV_MAX - 1) begin
+                clk_div <= 32'b0;
+                step_count <= step_count + 1'b1;
+                done <= 0;
+                case (step_state)
+                    STEP1: begin
+                        IN1 <= 1'b1;
+                        IN2 <= 1'b0;
+                        IN3 <= 1'b1;
+                        IN4 <= 1'b0;
+                        step_state <= STEP2;
+                    end
+                    STEP2: begin
+                        if (dir==0) begin
+                            IN1 <= 1'b1;
+                            IN2 <= 1'b0;
+                            IN3 <= 1'b0;
+                            IN4 <= 1'b1;
+                        end else begin
+                            IN1 <= 1'b0;
+                            IN2 <= 1'b1;
+                            IN3 <= 1'b1;
+                            IN4 <= 1'b0;
+                        end
+                        step_state <= STEP3;
+                    end
+                    STEP3: begin
+                        IN1 <= 1'b0;
+                        IN2 <= 1'b1;
+                        IN3 <= 1'b0;
+                        IN4 <= 1'b1;
+                        step_state <= STEP4;
+                    end
+                    STEP4: begin
+                        if (dir==0) begin
+                            IN1 <= 1'b0;
+                            IN2 <= 1'b1;
+                            IN3 <= 1'b1;
+                            IN4 <= 1'b0;
+                        end else begin
+                            IN1 <= 1'b1;
+                            IN2 <= 1'b0;
+                            IN3 <= 1'b0;
+                            IN4 <= 1'b1;
+                        end
+                        step_state <= STEP1;
+                    end
+                    default: begin
+                        IN1 <= 1'b0;
+                        IN2 <= 1'b0;
+                        IN3 <= 1'b0;
+                        IN4 <= 1'b0;
+                        step_state <= STEP1;
+                    end
+                endcase
+            end else begin
+                clk_div <= clk_div + 1'b1;
+                done <= 0;
+            end
+        end else begin
+            clk_div <= 32'b0;
+            step_state <= STEP1;
+            step_count <= 16'd0;
+            done <= 1'b0;
             IN1 <= 1'b0;
             IN2 <= 1'b0;
             IN3 <= 1'b0;
             IN4 <= 1'b0;
-        end else if (clk_div >= CLK_DIV_MAX - 1) begin
-            clk_div <= 32'b0;
-            step_count <= step_count + 1'b1;
-            
-            case (step_state)
-                STEP1: begin
-                    IN1 <= 1'b1;
-                    IN2 <= 1'b0;
-                    IN3 <= 1'b1;
-                    IN4 <= 1'b0;
-                    step_state <= STEP2;
-                end
-                STEP2: begin
-                    if (dir==0) begin
-                        IN1 <= 1'b1;
-                        IN2 <= 1'b0;
-                        IN3 <= 1'b0;
-                        IN4 <= 1'b1;
-                    end else begin
-                        IN1 <= 1'b0;
-                        IN2 <= 1'b1;
-                        IN3 <= 1'b1;
-                        IN4 <= 1'b0;
-                    end
-                    step_state <= STEP3;
-                end
-                STEP3: begin
-                    IN1 <= 1'b0;
-                    IN2 <= 1'b1;
-                    IN3 <= 1'b0;
-                    IN4 <= 1'b1;
-                    step_state <= STEP4;
-                end
-                STEP4: begin
-                    if (dir==0) begin
-                        IN1 <= 1'b0;
-                        IN2 <= 1'b1;
-                        IN3 <= 1'b1;
-                        IN4 <= 1'b0;
-                    end else begin
-                        IN1 <= 1'b1;
-                        IN2 <= 1'b0;
-                        IN3 <= 1'b0;
-                        IN4 <= 1'b1;
-                    end
-                    step_state <= STEP1;
-                end
-            endcase
-        end else begin
-            clk_div <= clk_div + 1'b1;
+            ENA <= 1'b1;
+            ENB <= 1'b1;
         end
     end
 end
